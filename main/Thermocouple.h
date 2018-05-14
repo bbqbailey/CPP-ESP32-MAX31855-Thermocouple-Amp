@@ -58,11 +58,13 @@ class Thermocouple {
         int valueBit = 0;
         int32_t rawData = 0;
         int16_t thermData = 0;
-        int16_t internData = 0;
+        int16_t rjData = 0;
         uint32_t  error = 0;
 
-        float tempIntC = 0.0;
-        float tempIntF = 0.0;
+        float tempRJC = 0.0;
+        float tempRJF = 0.0;
+        float tempThermC = 0.0;
+        float tempThermF = 0.0;
         float tempC = 0.0;
         float tempF = 0.0;
 

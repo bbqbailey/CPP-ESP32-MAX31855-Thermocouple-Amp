@@ -49,23 +49,19 @@ void Thermocouple::getData(void) {
 
     if(DEBUG) {
         std::cout << "###TESTING!###\n";
-        rawData = 0xFFFC0000;
+        rawData = 0x064C0000; //0x064C = 100.75
     }
 
-    internData = (rawData & 0x7FF0) >> 4; //dump D16 'fault bit'
+    rjData = (uint16_t(rawData) & 0x7FF0) >> 4; 
+    tempRJC = float(rjData) * 0.0625;
+    tempRJF = tempRJC * 1.8 + 32.0;
+
     thermData = (rawData >> 18);
-    tempIntC = float(internData) * 0.0625;
-    tempIntF = tempIntC * 1.8 + 32.0;
-    tempC   = (float(thermData) * .25) + tempIntC;
-    tempF   = tempC * 1.8 + 32.0;
+    tempThermC = float(thermData) * .25;
+    tempThermF = tempThermC * 1.8 + 32.0;
 
-    if(DEBUG) {
-        printf("tempIntC: %6.1f \n", tempIntC);
-        printf("tempIntF: %6.1f \n", tempIntF);
-        printf("tempC: %6.1f \n", tempC);
-        printf("TempF: %6.1f \n", tempF);
-        std::cout << "\n";
-    }
+    tempC   = (float(thermData) * .25) + tempRJC;
+    tempF   = tempC * 1.8 + 32.0;
 
 }
 
@@ -81,18 +77,24 @@ float Thermocouple::getTempC(void) {
 }
 
 void Thermocouple::printData(void) {
-        std::cout << "\n";
+        std::cout << "\n====printData===\n";
         std::cout << "Read Counter: " << readCounter << "\n";
         printf("error: ox%X\n", error);  //will not be zero if error returned from chip
-        if(DEBUG) {
-            std::bitset<32>  x(rawData);
-            std::cout << "Binary: " << x << "\n";
-            printf("rawData: 0x%X\n", rawData);
-            printf("internData: 0x%X\n", internData);
-            printf("thermData: 0x%X\n", thermData);
-        }   
-        printf("tempIntC: %6.1f \n", tempIntC);
-        printf("tempIntF: %6.1f \n", tempIntF);
+
+        std::bitset<32>  x(rawData);
+        std::cout << "Binary: " << x << "\n";
+
+        printf("rawData: 0x%X\n", rawData);
+        printf("rjData: 0X%X, %d \n", rjData, rjData);
+        printf("thermData: 0X%X, %d\n", thermData, thermData);
+        printf("\n");
+
+        printf("tempRJC: %6.1f \n", tempRJC);
+        printf("tempRJF: %6.1f \n", tempRJF);
+        printf("tempThermC: %6.1f \n", tempThermC);
+        printf("tempThermF: %6.1f \n", tempThermF);
+        printf("\n");
+
         printf("tempC: %6.1f \n", tempC);
         printf("TempF: %6.1f \n", tempF);
         printf("NOTE: NEED TO ADD FAULT DETECTION FOR D16\n");
