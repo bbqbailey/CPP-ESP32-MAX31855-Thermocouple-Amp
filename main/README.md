@@ -12,6 +12,8 @@
 *   Initial Release May 13 2018
 *
 * License: GNU Lesser General Public License v3.0
+*   - Please refer to LICENSE file in this repository for 
+*     additional details.
 * Purpose: Software for MAX31855 on ESP32
 *   I was not able to use the Espressif SPI code to work
 *   correctly with my MAX31855 thermocouple amplifier for 
