@@ -60,6 +60,7 @@ class Thermocouple {
         int16_t thermData = 0;
         int16_t rjData = 0;
         uint32_t  error = 0;
+        uint8_t fault=0;
 
         float tempRJC = 0.0;
         float tempRJF = 0.0;
