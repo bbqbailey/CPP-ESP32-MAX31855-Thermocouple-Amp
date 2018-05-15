@@ -52,7 +52,8 @@ void Thermocouple::getData(void) {
         rawData = 0x064C0000; //0x064C = 100.75
     }
 
-    fault = rawData & 0x00010000;
+    fault = rawData & 0x10000;
+    error = rawData & 0x7;
     rjData = (uint16_t(rawData) & 0x7FF0) >> 4; 
     tempRJC = float(rjData) * 0.0625;
     tempRJF = tempRJC * 1.8 + 32.0;
