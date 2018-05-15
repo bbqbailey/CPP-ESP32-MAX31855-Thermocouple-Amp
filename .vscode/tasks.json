@@ -8,7 +8,7 @@
     "options": {
         "cwd": "${workspaceRoot}",
         "env": { 
-            "IDF_PATH" : "/home/superben/esp/esp-idf", 
+            "IDF_PATH" : "${Home}/esp/esp-idf", 
         }
     },
     "tasks": [
