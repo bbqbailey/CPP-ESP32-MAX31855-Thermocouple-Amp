@@ -1,6 +1,8 @@
 #include "Thermocouple.h"
 
-Thermocouple::Thermocouple(void) {
+Thermocouple::Thermocouple(std::string *name) {
+    this->name = name;
+
     this->cs = gpio_num_t(CS);
     this->clk = gpio_num_t(CLK);
     this->data = gpio_num_t(DATA);
@@ -8,10 +10,11 @@ Thermocouple::Thermocouple(void) {
     this->init();
 }
 
-Thermocouple::Thermocouple(gpio_num_t cs, gpio_num_t clk, gpio_num_t data) {
+Thermocouple::Thermocouple(gpio_num_t cs, gpio_num_t clk, gpio_num_t data, std::string *name) {
     this->cs   = cs;
     this->clk  = clk;
     this->data = data;
+    this->name = name;
 
     this->init();
 }
@@ -80,6 +83,7 @@ float Thermocouple::getTempC(void) {
 
 void Thermocouple::printData(void) {
         std::cout << "\n====printData===\n";
+        std::cout << "Name: " << *name << "\n";
         std::cout << "Read Counter: " << readCounter << "\n";
         printf("Error: ox%X\n", error);  //will not be zero if error returned from chip
         printf("Fault: ox%X\n", fault);  //will not be zero if fault returned from chip
@@ -104,4 +108,7 @@ void Thermocouple::printData(void) {
         std::cout << "\n";
 }
 
+std::string* Thermocouple::getName(void) {
+    return this->name;
+}
 

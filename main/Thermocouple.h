@@ -29,15 +29,19 @@
 
 class Thermocouple {
     public:
-        Thermocouple(void);
-        Thermocouple(gpio_num_t cs, gpio_num_t clk, gpio_num_t data);
+        Thermocouple(std::string *name);
+        Thermocouple(gpio_num_t cs, gpio_num_t clk, gpio_num_t data, std::string *name);
 
         float getTempC(void);
         float getTempF(void);
+        std::string* getName(void);
         void printData(void);
-        void negativeValue(void);
 
     private:
+        void init(void);
+        void getData(void);
+
+        std::string *name;
         gpio_num_t cs;
         gpio_num_t clk;
         gpio_num_t data;
@@ -57,7 +61,5 @@ class Thermocouple {
         float tempC = 0.0;
         float tempF = 0.0;
 
-        void init(void);
-        void getData(void);
 };
 

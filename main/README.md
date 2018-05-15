@@ -7,6 +7,13 @@
 *   Initial release May 15 2018
 *       - changed error and fault to uint8_t.
 *       - added detection of error and fault to rawData
+*       - Removed non-used negativeCalcs function
+*       - Added 'std::string* getName(void)' function  this is to 
+*         facilitate the use of multiple sensors.  Will probably 
+*         be dropped when implemented in full Device/Sensor design,
+*         as it will reside there.  But for now .... it's in there!
+*       - modified Thermocouple constructors to add std::string name
+*       - added new private data element 'std::string* name'
 *
 * Rev: 1.0
 *   Initial Release May 13 2018

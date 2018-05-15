@@ -5,7 +5,9 @@ extern "C" {
 }
 
 void app_main(void) {
-    Thermocouple thermocouple = Thermocouple();
+    std::string name = "Combustion Chamber";
+
+    Thermocouple thermocouple = Thermocouple(&name);
     while(1) {
         thermocouple.getTempF();
         thermocouple.printData();
